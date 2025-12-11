@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ФК Анжил — Магазин</title>
+
+<style>
+/* ================= ROOT ================= */
+:root{
+  --orange:#ff8a00;
+  --dark:#222;
+  --muted:#f3f3f3;
+  --red:#d61b1b;
+  --card:#2b2b2b;
+  --max:1200px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--muted);
+  color:#111;
+}
+a{
+  color:inherit;
+  text-decoration:none;
+}
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ================= HEADER ================= */
+header.site{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:60;
+  background:#1D1D1D;
+  transition:background .25s,box-shadow .25s;
+}
+header.site .bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+  transition:padding .25s;
+}
+header.site .logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+header.site .logo img{
+  height:56px;
+  transition:height .25s;
+}
+header.site .brand{
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+}
+nav.main ul{
+  display:flex;
+  gap:18px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+nav.main a{
+  color:#fff;
+  padding:8px 6px;
+  font-weight:600;
+}
+
+header.site.shrink{
+  background:#1D1D1D;
+  box-shadow:0 6px 18px rgba(0,0,0,0.4);
+}
+header.site.shrink .bar{padding:8px 0}
+header.site.shrink .logo img{height:34px}
+header.site.shrink .brand{display:none}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#1e1e1e;
+  color:#ddd;
+  padding:28px 0;
+}
+.foot-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.footer-title{
+  font-weight:700;
+  color:#fff;
+}
+.address{text-align:right}
+.copyright{opacity:0.8;font-size:13px}
+
+/* ================= SHOP PAGE ================= */
+.page-title{
+  text-align:center;
+  color:#fff;
+  font-size:42px;
+  margin:40px 0;
+  letter-spacing:2px;
+}
+.shop-section{
+  background:var(--orange);
+  min-height:calc(100vh - 90px);
+  padding:40px 0;
+}
+.shop-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:60px;
+  max-width:800px;
+  margin:0 auto;
+}
+.product-card{
+  background:var(--card);
+  border-radius:8px;
+  overflow:hidden;
+  text-align:center;
+  color:#fff;
+}
+.product-card img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  display:block;
+}
+.product-info{
+  padding:20px;
+}
+.product-title{
+  font-size:20px;
+  margin:0 0 10px;
+}
+.product-price{
+  font-size:18px;
+  margin:0 0 16px;
+}
+.btn{
+  display:inline-block;
+  padding:10px 18px;
+  background:var(--red);
+  color:#fff;
+  border-radius:2px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+.btn.disabled{
+  background:#555;
+  cursor:not-allowed;
+}
+
+/* ================= CART ICON ================= */
+.cart-icon{
+  position:relative;
+  cursor:pointer;
+  padding:8px;
+  color:#fff;
+  display:flex;
+  align-items:center;
+}
+
+.cart-badge{
+  position:absolute;
+  top:2px;
+  right:0;
+  background:var(--red);
+  color:#fff;
+  border-radius:50%;
+  width:20px;
+  height:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+}
+
+.cart-badge.hidden{
+  display:none;
+}
+
+/* ================= CART DROPDOWN ================= */
+.cart-dropdown{
+  position:absolute;
+  top:100%;
+  right:0;
+  width:380px;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  z-index:1000;
+  margin-top:12px;
+  display:none;
+}
+
+.cart-dropdown.show{
+  display:block;
+}
+
+.cart-dropdown-header{
+  padding:16px;
+  border-bottom:1px solid #444;
+  font-weight:700;
+  font-size:18px;
+}
+
+.cart-items{
+  max-height:400px;
+  overflow-y:auto;
+}
+
+.cart-item{
+  padding:16px;
+  border-bottom:1px solid #444;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.cart-item-image{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:4px;
+  background:#fff;
+}
+
+.cart-item-details{
+  flex:1;
+}
+
+.cart-item-name{
+  font-weight:700;
+  margin:0 0 4px;
+}
+
+.cart-item-price{
+  font-size:14px;
+  opacity:0.8;
+}
+
+.cart-item-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+.cart-item-btn{
+  background:var(--orange);
+  color:#fff;
+  border:none;
+  width:24px;
+  height:24px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.cart-item-quantity{
+  min-width:30px;
+  text-align:center;
+}
+
+.cart-item-remove{
+  background:var(--red);
+  color:#fff;
+  border:none;
+  padding:4px 8px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.cart-empty{
+  padding:40px;
+  text-align:center;
+  opacity:0.6;
+}
+
+.cart-footer{
+  padding:16px;
+  border-top:1px solid #444;
+}
+
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.cart-checkout-btn{
+  width:100%;
+  padding:12px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:16px;
+}
+
+.cart-checkout-btn:hover{
+  background:#c01717;
+}
+</style>
+
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site" id="siteHeader">
+  <div class="container">
+    <div class="bar">
+      <a class="logo" href="index.html">
+        <img src="images/v1_195.png" alt="логотип">
+        <div class="brand">АНЖИЛ — КОСТРОМА</div>
+      </a>
+      <nav class="main">
+        <ul>
+          <li><a href="squad.html">Состав</a></li>
+          <li><a href="history.html">История</a></li>
+          <li><a href="media.html">Медиа</a></li>
+          <li><a href="shop.html">Магазин</a></li>
+          <li><a href="tickets.html">Билеты</a></li>
+          <li><a href="transfers.html">Трансферы</a></li>
+          <li><a href="login.html">Войти</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon" id="cartIcon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+
+        <!-- ================= CART DROPDOWN ================= -->
+        <div class="cart-dropdown" id="cartDropdown">
+          <div class="cart-dropdown-header">Корзина</div>
+          <div class="cart-items" id="cartItemsContainer">
+            <div class="cart-empty">Корзина пуста</div>
+          </div>
+          <div class="cart-footer" id="cartFooter" style="display:none">
+            <div class="cart-total">
+              <span>Итого:</span>
+              <span id="cartTotal">0 ₽</span>
+            </div>
+            <button class="cart-checkout-btn" onclick="window.location.href='checkout.html'">
+              Перейти к оплате
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main style="padding-top:90px">
+  <!-- ================= SHOP PAGE ================= -->
+  <section class="shop-section">
+    <div class="container">
+      <h1 class="page-title">ФОРМА</h1>
+
+      <div class="shop-grid" id="shopGrid">
+        <!-- Товары загрузятся динамически -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div>
+        <div class="footer-title">Официальный сайт ФК "Анжил"</div>
+        <div class="copyright">© 2019–2025</div>
+      </div>
+      <div class="address">Мы находимся: город Кострома, ул. Ленина 147, кв.26</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/auth-header.js"></script>
+<script>
+/* ========= SHRINK HEADER ========= */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) header.classList.add('shrink');
+  else header.classList.remove('shrink');
+});
+
+/* ========= LOAD PRODUCTS DYNAMICALLY ========= */
+async function loadProducts() {
+  try {
+    const response = await fetch('http://localhost:5000/api/products');
+    if (!response.ok) {
+      console.error('Failed to load products');
+      return;
+    }
+
+    const products = await response.json();
+    const shopGrid = document.getElementById('shopGrid');
+
+    shopGrid.innerHTML = products.map(product => {
+      const quantity = product.quantity || 0;
+      const isOutOfStock = quantity <= 0;
+
+      return `
+      <div class="product-card">
+        <img src="${product.image}" alt="${product.name}">
+        <div class="product-info">
+          <h3 class="product-title">${product.name}</h3>
+          <p class="product-price">${product.price} ₽</p>
+          <p style="margin:8px 0; font-size:14px; color:${isOutOfStock ? '#ff6d6d' : '#9aff6d'}; font-weight:600;">
+            ${isOutOfStock ? 'Нет в наличии' : `В наличии: ${quantity} шт.`}
+          </p>
+          ${!isOutOfStock
+            ? `<button class="btn" data-product-id="${product.id}" data-product-name="${product.name}" data-product-price="${product.price}" data-product-image="${product.image}">КУПИТЬ</button>`
+            : `<button class="btn disabled" style="background:#555; cursor:not-allowed; opacity:0.5;">НЕТ В НАЛИЧИИ</button>`
+          }
+        </div>
+      </div>
+      `;
+    }).join('');
+
+    // Добавляем обработчики для кнопок КУПИТЬ
+    const buyButtons = shopGrid.querySelectorAll('.btn:not(.disabled)');
+    buyButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const productData = {
+          id: parseInt(btn.dataset.productId),
+          name: btn.dataset.productName,
+          price: parseInt(btn.dataset.productPrice),
+          image: btn.dataset.productImage,
+          quantity: 1
+        };
+
+        cart.addItem(productData);
+        alert('Товар добавлен в корзину!');
+      });
+    });
+
+  } catch (err) {
+    console.error('Error loading products:', err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadProducts();
+});
+</script>
+
+</body>
+</html>

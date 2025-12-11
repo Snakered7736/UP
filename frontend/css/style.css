@@ -1,0 +1,700 @@
+/* ==================== */
+/* ИМПОРТ ШРИФТОВ */
+/* ==================== */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
+
+/* ==================== */
+/* CSS ПЕРЕМЕННЫЕ (ИЗ FIGMA) */
+/* ==================== */
+:root {
+    --color-primary: #FF880B;        /* Оранжевый (основной фон) */
+    --color-secondary: #1D1D1D;      /* Черный (шапка, карточки) */
+    --color-accent: #FF0000;         /* Красный (кнопки) */
+    --color-gold: #FFB200;           /* Золотой (акценты, слоган) */
+    --color-background: #FF880B;     /* Оранжевый фон секций */
+    --color-surface: #1D1D1D;        /* Черный фон карточек */
+    --color-text: #FFFFFF;           /* Белый текст */
+    --color-text-muted: #E2D7CC;     /* Серый текст */
+}
+
+/* ==================== */
+/* СБРОС СТИЛЕЙ И БАЗОВЫЕ НАСТРОЙКИ */
+/* ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Oswald', sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* ==================== */
+/* ШАПКА САЙТА (ПО ДИЗАЙНУ FIGMA) */
+/* ==================== */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-secondary); /* Черный */
+    border-bottom: 2px solid #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0;
+    gap: 40px;
+}
+
+/* Компактная шапка при скролле */
+.header.compact {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header.compact .header-content {
+    padding: 15px 0;
+}
+
+.header.compact .logo-icon {
+    font-size: 36px;
+}
+
+.header.compact .logo-title {
+    font-size: 22px;
+}
+
+.header.compact .logo-subtitle {
+    font-size: 12px;
+}
+
+/* ЛОГОТИП */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logo-icon {
+    font-size: 48px;
+    transition: font-size 0.3s;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.logo-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--color-text);
+    line-height: 1;
+    transition: font-size 0.3s;
+}
+
+.logo-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--color-text-muted);
+    line-height: 1;
+    transition: font-size 0.3s;
+}
+
+/* НАВИГАЦИЯ */
+.nav {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-link {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-gold);
+}
+
+/* ПРАВАЯ ЧАСТЬ ШАПКИ */
+.header-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.header-contacts {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: var(--color-text);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.contact-phone,
+.contact-email {
+    white-space: nowrap;
+}
+
+.header-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.header-btn {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.header-btn:hover {
+    color: var(--color-gold);
+}
+
+.header-btn-login {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-gold);
+    text-decoration: none;
+    padding: 6px 18px;
+    border: 1px solid var(--color-gold);
+    border-radius: 4px;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.header-btn-login:hover {
+    background-color: var(--color-gold);
+    color: var(--color-secondary);
+}
+
+/* ==================== */
+/* ГЛАВНАЯ СЕКЦИЯ (ГЕРОЙ) */
+/* ==================== */
+
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('../images/hero-bg.jpg') center/cover no-repeat;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 120px; /* Отступ для фиксированной шапки */
+    padding: 80px 20px;
+}
+
+.hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 140px;
+    color: var(--color-text-muted);
+    text-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+    margin-bottom: 20px;
+    line-height: 1;
+}
+
+.hero-slogan {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 77px;
+    color: var(--color-gold);
+    text-shadow: 0px 4.4px 33px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.hero-motto {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 70px;
+    color: var(--color-accent);
+    text-shadow: 0px 4px 30px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+/* ==================== */
+/* СЕКЦИЯ БЛИЖАЙШЕГО МАТЧА */
+/* ==================== */
+
+.next-match-section {
+    background-color: var(--color-primary); /* Оранжевый фон */
+    padding: 80px 0;
+}
+
+.section-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 64px;
+    color: var(--color-text);
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 60px;
+    line-height: 1.2;
+}
+
+.match-card {
+    background-color: var(--color-surface); /* Черный */
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.match-info-top {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    font-family: 'Oswald', sans-serif;
+    color: var(--color-text);
+}
+
+.match-info-top span:first-child {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.match-type {
+    font-size: 18px;
+    color: var(--color-text-muted);
+}
+
+.match-teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 40px;
+}
+
+.team-home,
+.team-away {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.team-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.team-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 43px;
+    color: var(--color-text);
+    text-align: center;
+    line-height: 1.2;
+}
+
+.match-score {
+    flex: 1;
+    text-align: center;
+}
+
+.score {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 116px;
+    color: var(--color-text);
+    line-height: 1;
+}
+
+.match-stadium {
+    font-family: 'Oswald', sans-serif;
+    font-size: 29px;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.btn-buy-ticket {
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    background-color: var(--color-accent); /* Красный */
+    color: var(--color-text);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-buy-ticket:hover {
+    background-color: #CC0000;
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== */
+/* СЕКЦИЯ НОВОСТЕЙ */
+/* ==================== */
+
+.news-section {
+    background-color: var(--color-primary); /* Оранжевый */
+    padding: 80px 0;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.news-card {
+    background-color: var(--color-surface); /* Черный */
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.news-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.news-card-content {
+    padding: 30px;
+}
+
+.news-card-content h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 31px;
+    color: var(--color-text);
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.news-card-content p {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.news-date {
+    font-size: 16px;
+    color: var(--color-text-muted);
+}
+
+/* ==================== */
+/* ФУТЕР */
+/* ==================== */
+
+.footer {
+    background-color: var(--color-surface); /* Черный */
+    border-top: 2px solid var(--color-text);
+    padding: 60px 0 30px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    color: var(--color-text);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.footer-section p {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+}
+
+.footer-section span {
+    color: var(--color-text);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+/* ==================== */
+/* АДАПТИВНОСТЬ (МЕДИА-ЗАПРОСЫ) */
+/* ==================== */
+
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 100px;
+    }
+
+    .hero-slogan {
+        font-size: 60px;
+    }
+
+    .hero-motto {
+        font-size: 55px;
+    }
+
+    .section-title {
+        font-size: 48px;
+    }
+
+    .team-name {
+        font-size: 36px;
+    }
+
+    .score {
+        font-size: 90px;
+    }
+}
+
+@media (max-width: 992px) {
+    .header-content {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .header-right {
+        align-items: center;
+    }
+
+    .nav {
+        order: 3;
+        width: 100%;
+    }
+
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .match-teams {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .score {
+        font-size: 80px;
+    }
+
+    .hero-title {
+        font-size: 80px;
+    }
+
+    .hero-slogan {
+        font-size: 50px;
+    }
+
+    .hero-motto {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .header-content {
+        padding: 20px 0;
+    }
+
+    .nav {
+        gap: 20px;
+    }
+
+    .nav-link {
+        font-size: 16px;
+    }
+
+    .hero-section {
+        margin-top: 100px;
+        min-height: 500px;
+        padding: 60px 20px;
+    }
+
+    .hero-title {
+        font-size: 64px;
+    }
+
+    .hero-slogan {
+        font-size: 40px;
+    }
+
+    .hero-motto {
+        font-size: 35px;
+    }
+
+    .section-title {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+
+    .match-card {
+        padding: 30px 20px;
+    }
+
+    .team-logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .team-name {
+        font-size: 28px;
+    }
+
+    .score {
+        font-size: 60px;
+    }
+
+    .match-stadium {
+        font-size: 20px;
+    }
+
+    .btn-buy-ticket {
+        width: 100%;
+        font-size: 24px;
+        padding: 15px 30px;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .news-card img {
+        height: 250px;
+    }
+
+    .news-card-content h3 {
+        font-size: 24px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-section h3 {
+        font-size: 28px;
+    }
+
+    .footer-section p {
+        font-size: 16px;
+    }
+
+    .next-match-section,
+    .news-section {
+        padding: 60px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-title {
+        font-size: 20px;
+    }
+
+    .logo-subtitle {
+        font-size: 12px;
+    }
+
+    .logo-icon {
+        font-size: 36px;
+    }
+
+    .header-contacts {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 12px;
+        align-items: center;
+    }
+
+    .header-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .nav {
+        gap: 15px;
+    }
+
+    .nav-link {
+        font-size: 14px;
+    }
+
+    .hero-title {
+        font-size: 48px;
+    }
+
+    .hero-slogan {
+        font-size: 32px;
+    }
+
+    .hero-motto {
+        font-size: 28px;
+    }
+}

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ФК Анжил — Профиль</title>
+
+<style>
+/* ================= ROOT ================= */
+:root{
+  --orange:#ff8a00;
+  --dark:#222;
+  --muted:#f3f3f3;
+  --red:#d61b1b;
+  --card:#2b2b2b;
+  --max:1200px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--muted);
+  color:#111;
+}
+a{
+  color:inherit;
+  text-decoration:none;
+}
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ================= HEADER ================= */
+header.site{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:60;
+  background:#1D1D1D;
+  transition:background .25s,box-shadow .25s;
+}
+header.site .bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+  transition:padding .25s;
+}
+header.site .logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+header.site .logo img{
+  height:56px;
+  transition:height .25s;
+}
+header.site .brand{
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+}
+nav.main ul{
+  display:flex;
+  gap:18px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+nav.main a{
+  color:#fff;
+  padding:8px 6px;
+  font-weight:600;
+}
+
+header.site.shrink{
+  background:#1D1D1D;
+  box-shadow:0 6px 18px rgba(0,0,0,0.4);
+}
+header.site.shrink .bar{padding:8px 0}
+header.site.shrink .logo img{height:34px}
+header.site.shrink .brand{display:none}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#1e1e1e;
+  color:#ddd;
+  padding:28px 0;
+}
+.foot-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.footer-title{
+  font-weight:700;
+  color:#fff;
+}
+.address{text-align:right}
+.copyright{opacity:0.8;font-size:13px}
+
+/* ================= SHOP PAGE ================= */
+.page-title{
+  text-align:center;
+  color:#fff;
+  font-size:42px;
+  margin:40px 0;
+  letter-spacing:2px;
+}
+.shop-section{
+  background:var(--orange);
+  min-height:calc(100vh - 90px);
+  padding:40px 0;
+}
+.shop-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:60px;
+  max-width:800px;
+  margin:0 auto;
+}
+.product-card{
+  background:var(--card);
+  border-radius:8px;
+  overflow:hidden;
+  text-align:center;
+  color:#fff;
+}
+.product-card img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  display:block;
+}
+.product-info{
+  padding:20px;
+}
+.product-title{
+  font-size:20px;
+  margin:0 0 10px;
+}
+.product-price{
+  font-size:18px;
+  margin:0 0 16px;
+}
+.btn{
+  display:inline-block;
+  padding:10px 18px;
+  background:var(--red);
+  color:#fff;
+  border-radius:2px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+}
+.btn.disabled{
+  background:#555;
+  cursor:not-allowed;
+}
+
+/* ================= CART ICON ================= */
+.cart-icon{
+  position:relative;
+  cursor:pointer;
+  padding:8px;
+  color:#fff;
+  display:flex;
+  align-items:center;
+}
+
+.cart-badge{
+  position:absolute;
+  top:2px;
+  right:0;
+  background:var(--red);
+  color:#fff;
+  border-radius:50%;
+  width:20px;
+  height:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+}
+
+.cart-badge.hidden{
+  display:none;
+}
+
+/* ================= CART DROPDOWN ================= */
+.cart-dropdown{
+  position:absolute;
+  top:100%;
+  right:0;
+  width:380px;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  z-index:1000;
+  margin-top:12px;
+  display:none;
+}
+
+.cart-dropdown.show{
+  display:block;
+}
+
+.cart-dropdown-header{
+  padding:16px;
+  border-bottom:1px solid #444;
+  font-weight:700;
+  font-size:18px;
+}
+
+.cart-items{
+  max-height:400px;
+  overflow-y:auto;
+}
+
+.cart-item{
+  padding:16px;
+  border-bottom:1px solid #444;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.cart-item-image{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:4px;
+  background:#fff;
+}
+
+.cart-item-details{
+  flex:1;
+}
+
+.cart-item-name{
+  font-weight:700;
+  margin:0 0 4px;
+}
+
+.cart-item-price{
+  font-size:14px;
+  opacity:0.8;
+}
+
+.cart-item-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+.cart-item-btn{
+  background:var(--orange);
+  color:#fff;
+  border:none;
+  width:24px;
+  height:24px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.cart-item-quantity{
+  min-width:30px;
+  text-align:center;
+}
+
+.cart-item-remove{
+  background:var(--red);
+  color:#fff;
+  border:none;
+  padding:4px 8px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.cart-empty{
+  padding:40px;
+  text-align:center;
+  opacity:0.6;
+}
+
+.cart-footer{
+  padding:16px;
+  border-top:1px solid #444;
+}
+
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:12px;
+}
+
+.cart-checkout-btn{
+  width:100%;
+  padding:12px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:16px;
+}
+
+.cart-checkout-btn:hover{
+  background:#c01717;
+}
+</style>
+
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site" id="siteHeader">
+  <div class="container">
+    <div class="bar">
+      <a class="logo" href="index.html">
+        <img src="images/v1_195.png" alt="логотип">
+        <div class="brand">АНЖИЛ — КОСТРОМА</div>
+      </a>
+      <nav class="main">
+        <ul>
+          <li><a href="squad.html">Состав</a></li>
+          <li><a href="history.html">История</a></li>
+          <li><a href="media.html">Медиа</a></li>
+          <li><a href="shop.html">Магазин</a></li>
+          <li><a href="tickets.html">Билеты</a></li>
+          <li><a href="transfers.html">Трансферы</a></li>
+          <li><a href="login.html">Войти</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon" id="cartIcon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+
+        <!-- ================= CART DROPDOWN ================= -->
+        <div class="cart-dropdown" id="cartDropdown">
+          <div class="cart-dropdown-header">Корзина</div>
+          <div class="cart-items" id="cartItemsContainer">
+            <div class="cart-empty">Корзина пуста</div>
+          </div>
+          <div class="cart-footer" id="cartFooter" style="display:none">
+            <div class="cart-total">
+              <span>Итого:</span>
+              <span id="cartTotal">0 ₽</span>
+            </div>
+            <button class="cart-checkout-btn" onclick="window.location.href='checkout.html'">
+              Перейти к оплате
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main style="padding-top:90px">
+  <!-- ================= PROFILE PAGE ================= -->
+  <section class="shop-section">
+    <div class="container">
+      <h1 class="page-title">МОЙ ПРОФИЛЬ</h1>
+
+      <div style="max-width:600px; margin:0 auto; background:var(--card); border-radius:8px; padding:40px; color:#fff;">
+        <h2 style="margin:0 0 30px; font-size:28px; text-align:center;">Информация о пользователе</h2>
+
+        <div style="margin-bottom:20px; padding:15px; background:#1a1a1a; border-radius:4px;">
+          <div style="color:#aaa; font-size:14px; margin-bottom:5px;">Имя:</div>
+          <div id="userName" style="font-size:18px; font-weight:600;">Загрузка...</div>
+        </div>
+
+        <div style="margin-bottom:20px; padding:15px; background:#1a1a1a; border-radius:4px;">
+          <div style="color:#aaa; font-size:14px; margin-bottom:5px;">Email:</div>
+          <div id="userEmail" style="font-size:18px; font-weight:600;">Загрузка...</div>
+        </div>
+
+        <div style="margin-bottom:20px; padding:15px; background:#1a1a1a; border-radius:4px;">
+          <div style="color:#aaa; font-size:14px; margin-bottom:5px;">Роль:</div>
+          <div id="userRole" style="font-size:18px; font-weight:600;">Загрузка...</div>
+        </div>
+
+        <button onclick="window.location.href='index.html'" style="width:100%; padding:15px; background:var(--red); color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:700; font-size:16px; margin-top:20px;">
+          Вернуться на главную
+        </button>
+      </div>
+
+      <!-- История заказов -->
+      <div style="max-width:1000px; margin:40px auto 0; background:var(--card); border-radius:8px; padding:40px; color:#fff;">
+        <h2 style="margin:0 0 30px; font-size:28px; text-align:center;">История заказов</h2>
+        <div id="ordersContainer">
+          <div style="text-align:center; color:#aaa; padding:40px;">Загрузка...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div>
+        <div class="footer-title">Официальный сайт ФК "Анжил"</div>
+        <div class="copyright">© 2019–2025</div>
+      </div>
+      <div class="address">Мы находимся: город Кострома, ул. Ленина 147, кв.26</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/auth-header.js"></script>
+<script>
+/* ========= SHRINK HEADER ========= */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) header.classList.add('shrink');
+  else header.classList.remove('shrink');
+});
+
+/* ========= CHECK AUTH ========= */
+const token = localStorage.getItem('token');
+if (!token) {
+  alert('Необходимо войти в систему');
+  window.location.href = 'login.html';
+}
+
+/* ========= LOAD PROFILE DATA ========= */
+async function loadProfile() {
+  try {
+    const response = await fetch('http://localhost:5000/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (response.ok) {
+      const user = await response.json();
+      document.getElementById('userName').textContent = user.name;
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('userRole').textContent = user.role === 'admin' ? 'Администратор' : 'Пользователь';
+    } else {
+      document.getElementById('userName').textContent = 'Ошибка загрузки';
+      document.getElementById('userEmail').textContent = 'Ошибка загрузки';
+      document.getElementById('userRole').textContent = 'Ошибка загрузки';
+    }
+  } catch (err) {
+    console.error('Error loading profile:', err);
+    document.getElementById('userName').textContent = 'Ошибка подключения';
+    document.getElementById('userEmail').textContent = 'Ошибка подключения';
+    document.getElementById('userRole').textContent = 'Ошибка подключения';
+  }
+}
+
+/* ========= LOAD ORDER HISTORY ========= */
+async function loadOrders() {
+  const ordersContainer = document.getElementById('ordersContainer');
+
+  try {
+    const response = await fetch('http://localhost:5000/api/profile/orders', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (response.ok) {
+      const orders = await response.json();
+
+      if (orders.length === 0) {
+        ordersContainer.innerHTML = '<div style="text-align:center; color:#aaa; padding:40px;">У вас пока нет заказов</div>';
+        return;
+      }
+
+      ordersContainer.innerHTML = orders.map(order => `
+        <div style="margin-bottom:30px; padding:20px; background:#1a1a1a; border-radius:8px; border-left:4px solid var(--orange);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <div>
+              <div style="font-size:18px; font-weight:700; color:var(--orange);">Заказ #${order.id}</div>
+              <div style="color:#aaa; font-size:14px; margin-top:5px;">${new Date(order.created_at).toLocaleString('ru-RU')}</div>
+            </div>
+            <div style="font-size:20px; font-weight:700;">${order.total.toLocaleString()} ₽</div>
+          </div>
+
+          <div style="border-top:1px solid #444; padding-top:15px;">
+            <div style="font-weight:600; margin-bottom:10px; color:#ddd;">Состав заказа:</div>
+            ${order.items.map(item => `
+              <div style="display:flex; gap:12px; align-items:center; padding:10px 0; color:#ccc; font-size:14px; border-bottom:1px solid #333;">
+                <img src="${item.product_image || 'images/placeholder.png'}" alt="${item.product_name}" style="width:50px; height:50px; object-fit:cover; border-radius:4px; background:#555;">
+                <div style="flex:1;">
+                  <div style="font-weight:600; color:#fff; margin-bottom:4px;">${item.product_name || 'Товар'}</div>
+                  ${item.ticket_details ? `<div style="font-size:12px; color:#aaa;">${item.ticket_details}</div>` : ''}
+                  <div style="font-size:13px; color:#aaa;">Количество: ${item.quantity}</div>
+                </div>
+                <div style="font-weight:700; color:var(--orange);">${(item.price * item.quantity).toLocaleString()} ₽</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    } else {
+      ordersContainer.innerHTML = '<div style="text-align:center; color:#f66; padding:40px;">Ошибка загрузки заказов</div>';
+    }
+  } catch (err) {
+    console.error('Error loading orders:', err);
+    ordersContainer.innerHTML = '<div style="text-align:center; color:#f66; padding:40px;">Ошибка подключения к серверу</div>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadProfile();
+  loadOrders();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ФК Анжил — Главная</title>
+
+<style>
+/* ================= ROOT ================= */
+:root{
+  --orange:#ff8a00;
+  --dark:#222;
+  --muted:#f3f3f3;
+  --red:#d61b1b;
+  --card:#2b2b2b;
+  --max:1200px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--muted);
+  color:#111;
+}
+a{
+  color:inherit;
+  text-decoration:none;
+}
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ================= HEADER ================= */
+header.site{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:60;
+  background:rgba(0,0,0,0.6);
+  transition:background .25s,box-shadow .25s;
+}
+header.site .bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+  transition:padding .25s;
+}
+header.site .logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+header.site .logo img{
+  height:56px;
+  transition:height .25s;
+}
+header.site .brand{
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+}
+nav.main ul{
+  display:flex;
+  gap:18px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+nav.main a{
+  color:#fff;
+  padding:8px 6px;
+  font-weight:600;
+}
+
+header.site.shrink{
+  background:rgba(0,0,0,0.85);
+  box-shadow:0 6px 18px rgba(0,0,0,0.4);
+}
+header.site.shrink .bar{padding:8px 0}
+header.site.shrink .logo img{height:34px}
+header.site.shrink .brand{display:none}
+
+/* ================= HERO ================= */
+.hero{
+  height:520px;
+  background-image:url('images/v1_167.png');
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.55));
+}
+.hero-inner{
+  position:relative;
+  text-align:center;
+  color:#fff;
+}
+.hero .pre{
+  color:var(--orange);
+  font-weight:700;
+  letter-spacing:2px;
+}
+.hero h1{
+  font-size:88px;
+  margin:6px 0;
+  letter-spacing:6px;
+}
+.hero h2{
+  font-size:36px;
+  margin:6px 0;
+  color:#ff4d4d;
+}
+
+/* ================= MATCH ================= */
+.section{padding:64px 0}
+.match-wrap{
+  background:var(--orange);
+  padding:52px 0;
+}
+.section-title{
+  text-align:center;
+  color:#fff;
+  font-size:34px;
+  margin:0 0 10px;
+}
+.match-card{
+  max-width:760px;
+  margin:18px auto;
+  background:#111;
+  color:#fff;
+  padding:28px;
+  border:6px solid rgba(0,0,0,0.25);
+  text-align:center;
+}
+.match-card .date{font-size:20px;opacity:0.95}
+.teams{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  margin-top:18px;
+}
+.team{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-width:140px;
+}
+.team img{height:68px}
+.team-name{margin-top:8px;font-weight:700}
+.score{font-size:56px;font-weight:700}
+.stadium{margin-top:12px;font-size:13px}
+.btn{
+  display:inline-block;
+  padding:10px 18px;
+  background:var(--red);
+  color:#fff;
+  border-radius:2px;
+  margin-top:14px;
+}
+
+/* ================= NEWS ================= */
+.news{
+  background:var(--orange);
+  padding:46px 0;
+}
+.news-title{
+  text-align:center;
+  font-size:36px;
+  color:#fff;
+  margin:0 0 20px;
+}
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  max-width:var(--max);
+  margin:0 auto;
+}
+.card{
+  background:#ff9f2e;
+  border-radius:4px;
+  overflow:hidden;
+  box-shadow:0 6px 12px rgba(0,0,0,0.12);
+}
+.card img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  display:block;
+}
+.card .caption{
+  background:#111;
+  color:#fff;
+  padding:12px;
+  text-align:center;
+  font-weight:700;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#1e1e1e;
+  color:#ddd;
+  padding:28px 0;
+}
+.foot-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.footer-title{
+  font-weight:700;
+  color:#fff;
+}
+.address{text-align:right}
+.copyright{opacity:0.8;font-size:13px}
+
+/* ================= CART ICON ================= */
+.cart-icon{
+  position:relative;
+  cursor:pointer;
+  padding:8px;
+  color:#fff;
+  display:flex;
+  align-items:center;
+}
+.cart-badge{
+  position:absolute;
+  top:2px;
+  right:0;
+  background:var(--red);
+  color:#fff;
+  border-radius:50%;
+  width:20px;
+  height:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+}
+.cart-badge.hidden{
+  display:none;
+}
+
+/* ================= CART DROPDOWN ================= */
+.cart-dropdown{
+  position:absolute;
+  top:100%;
+  right:0;
+  width:380px;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  z-index:1000;
+  margin-top:12px;
+  display:none;
+  color:#fff;
+}
+.cart-dropdown.show{
+  display:block;
+}
+.cart-dropdown-header{
+  padding:16px;
+  border-bottom:1px solid #444;
+  font-weight:700;
+  font-size:18px;
+}
+.cart-items{
+  max-height:400px;
+  overflow-y:auto;
+}
+.cart-item{
+  padding:16px;
+  border-bottom:1px solid #444;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.cart-item-image{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:4px;
+  background:#fff;
+}
+.cart-item-details{
+  flex:1;
+}
+.cart-item-name{
+  font-weight:700;
+  margin:0 0 4px;
+}
+.cart-item-price{
+  font-size:14px;
+  opacity:0.8;
+}
+.cart-item-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+.cart-item-btn{
+  background:var(--orange);
+  color:#fff;
+  border:none;
+  width:24px;
+  height:24px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+}
+.cart-item-quantity{
+  min-width:30px;
+  text-align:center;
+}
+.cart-item-remove{
+  background:var(--red);
+  color:#fff;
+  border:none;
+  padding:4px 8px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+.cart-empty{
+  padding:40px;
+  text-align:center;
+  opacity:0.6;
+}
+.cart-footer{
+  padding:16px;
+  border-top:1px solid #444;
+}
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:12px;
+}
+.cart-checkout-btn{
+  width:100%;
+  padding:12px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:16px;
+}
+.cart-checkout-btn:hover{
+  background:#c01717;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:980px){
+  .hero{height:420px}
+  .hero h1{font-size:56px}
+  .news-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  nav.main ul{display:none}
+  .hero{height:340px}
+  .hero h1{font-size:40px}
+  .news-grid{grid-template-columns:1fr}
+  .foot-inner{
+    flex-direction:column;
+    gap:12px;
+    text-align:center;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site" id="siteHeader">
+  <div class="container">
+    <div class="bar">
+      <a class="logo" href="index.html">
+        <img src="images/v1_195.png" alt="логотип">
+        <div class="brand">АНЖИЛ — КОСТРОМА</div>
+      </a>
+      <nav class="main">
+        <ul>
+          <li><a href="squad.html">Состав</a></li>
+          <li><a href="history.html">История</a></li>
+          <li><a href="media.html">Медиа</a></li>
+          <li><a href="shop.html">Магазин</a></li>
+          <li><a href="tickets.html">Билеты</a></li>
+          <li><a href="transfers.html">Трансферы</a></li>
+          <li><a href="login.html">Войти</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon" id="cartIcon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+
+        <!-- ================= CART DROPDOWN ================= -->
+        <div class="cart-dropdown" id="cartDropdown">
+          <div class="cart-dropdown-header">Корзина</div>
+          <div class="cart-items" id="cartItemsContainer">
+            <div class="cart-empty">Корзина пуста</div>
+          </div>
+          <div class="cart-footer" id="cartFooter" style="display:none">
+            <div class="cart-total">
+              <span>Итого:</span>
+              <span id="cartTotal">0 ₽</span>
+            </div>
+            <button class="cart-checkout-btn" onclick="window.location.href='checkout.html'">
+              Перейти к оплате
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main style="padding-top:0px">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-inner container">
+    <div class="pre">ХОЛОДНАЯ ГОЛОВА</div>
+    <h1>АНЖИЛ</h1>
+    <h2>ГОРЯЩЕЕ СЕРДЦЕ</h2>
+  </div>
+</section>
+
+
+<!-- ================= MATCH ================= -->
+<section class="section match-wrap">
+  <div class="container">
+    <h3 class="section-title">БЛИЖАЙШАЯ ВСТРЕЧА</h3>
+    <div class="match-card">
+      <div class="date">
+        11 НОЯБРЯ, 13:00
+        <br><small class="muted">Товарищеская встреча</small>
+      </div>
+
+      <div class="teams">
+        <div class="team">
+          <img src="images/v1_171.png" alt="ФК Анжил">
+          <div class="team-name">ФК Анжил</div>
+        </div>
+
+        <div class="score">0 : 0</div>
+
+        <div class="team">
+          <img src="images/v1_170.png" alt="ФК Амири">
+          <div class="team-name">ФК Амири</div>
+        </div>
+      </div>
+
+      <div class="stadium muted">Стадион "Олимп"</div>
+
+      <a class="btn" href="#">Купить билет</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWS ================= -->
+<section class="news">
+  <div class="container">
+    <h3 class="news-title">ПОСЛЕДНИЕ НОВОСТИ</h3>
+
+    <div class="news-grid" id="newsGrid">
+
+      <article class="card">
+        <a href="#">
+          <img src="images/v1_182.png" alt="новость 1">
+          <div class="caption">Стартовый состав на матч с \"Амири\"</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="#">
+          <img src="images/v1_188.png" alt="новость 2">
+          <div class="caption">День матча. Верим в наших!</div>
+        </a>
+      </article>
+
+      <article class="card">
+        <a href="#">
+          <img src="images/v1_186.png" alt="новость 3">
+          <div class="caption">Фото с тренировки команды</div>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div>
+        <div class="footer-title">Официальный сайт ФК "Анжил"</div>
+        <div class="copyright">© 2019–2025</div>
+      </div>
+      <div class="address">Мы находимся: город Кострома, ул. Ленина 147, кв.26</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/auth-header.js"></script>
+<script>
+/* ========= SHRINK HEADER ========= */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) header.classList.add('shrink');
+  else header.classList.remove('shrink');
+});
+
+/* ========= LOAD MATCH ========= */
+async function loadUpcomingMatch() {
+  try {
+    const response = await fetch('http://localhost:5000/api/matches/upcoming');
+    if (!response.ok) return;
+
+    const matches = await response.json();
+    if (matches.length === 0) return;
+
+    const match = matches[0];
+    const matchCard = document.querySelector('.match-card');
+
+    matchCard.querySelector('.date').innerHTML = `
+      ${match.date}, ${match.time}
+      <br><small class="muted">Футбольный матч</small>
+    `;
+
+    // Обновляем команды и логотипы
+    const teamImages = matchCard.querySelectorAll('.team img');
+    const teamNames = matchCard.querySelectorAll('.team-name');
+
+    teamImages[0].src = match.home_team_logo || 'images/v1_171.png';
+    teamImages[0].alt = match.home_team;
+    teamNames[0].textContent = match.home_team;
+
+    teamImages[1].src = match.away_team_logo || 'images/v1_170.png';
+    teamImages[1].alt = match.away_team;
+    teamNames[1].textContent = match.away_team;
+
+    matchCard.querySelector('.stadium').textContent = match.stadium;
+
+    if (match.score) {
+      matchCard.querySelector('.score').textContent = match.score;
+    }
+
+    // Добавляем билет в корзину
+    const buyBtn = matchCard.querySelector('.btn');
+    buyBtn.onclick = (e) => {
+      e.preventDefault();
+      cart.addItem({
+        id: 'ticket_' + match.id,
+        name: `Билет: ${match.home_team} vs ${match.away_team}`,
+        price: 100,
+        image: 'images/ticket.png',
+        quantity: 1
+      });
+      alert('Билет добавлен в корзину!');
+    };
+  } catch (err) {
+    console.error('Error loading match:', err);
+  }
+}
+
+/* ========= LOAD NEWS ========= */
+async function loadNews() {
+  try {
+    const response = await fetch('http://localhost:5000/api/news');
+    if (!response.ok) return;
+
+    const allNews = await response.json();
+    const latestNews = allNews.slice(0, 3);
+
+    const newsGrid = document.getElementById('newsGrid');
+    newsGrid.innerHTML = latestNews.map(news => `
+      <article class="card">
+        <a href="media.html">
+          <img src="${news.image || 'images/v1_182.png'}" alt="${news.title}" onerror="this.src='images/v1_182.png'">
+          <div class="caption">${news.title}</div>
+        </a>
+      </article>
+    `).join('');
+  } catch (err) {
+    console.error('Error loading news:', err);
+  }
+}
+
+/* ========= INIT ========= */
+window.addEventListener('DOMContentLoaded', () => {
+  loadUpcomingMatch();
+  loadNews();
+});
+
+/* ========= NEWS CLICK ========= */
+const newsGrid = document.getElementById('newsGrid');
+if (newsGrid){
+  newsGrid.addEventListener('click', e=>{
+    const a = e.target.closest('a');
+    if (a){
+      e.preventDefault();
+      window.location.href = 'media.html';
+    }
+  });
+}
+
+</script>
+
+</body>
+</html>

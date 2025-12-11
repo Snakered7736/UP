@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ФК Анжил — Состав</title>
+
+<style>
+/* ================= ROOT ================= */
+:root{
+  --orange:#ff8a00;
+  --dark:#222;
+  --muted:#f3f3f3;
+  --red:#d61b1b;
+  --card:#2b2b2b;
+  --max:1200px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--muted);
+  color:#111;
+}
+a{
+  color:inherit;
+  text-decoration:none;
+}
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ================= HEADER ================= */
+header.site{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:60;
+  background:#1D1D1D;
+  transition:background .25s,box-shadow .25s;
+}
+header.site .bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+  transition:padding .25s;
+}
+header.site .logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+header.site .logo img{
+  height:56px;
+  transition:height .25s;
+}
+header.site .brand{
+  font-weight:700;
+  color:#fff;
+  letter-spacing:1px;
+}
+nav.main ul{
+  display:flex;
+  gap:18px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+nav.main a{
+  color:#fff;
+  padding:8px 6px;
+  font-weight:600;
+}
+
+header.site.shrink{
+  background:#1D1D1D;
+  box-shadow:0 6px 18px rgba(0,0,0,0.4);
+}
+header.site.shrink .bar{padding:8px 0}
+header.site.shrink .logo img{height:34px}
+header.site.shrink .brand{display:none}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#1e1e1e;
+  color:#ddd;
+  padding:28px 0;
+}
+.foot-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.footer-title{
+  font-weight:700;
+  color:#fff;
+}
+.address{text-align:right}
+.copyright{opacity:0.8;font-size:13px}
+
+/* ================= CART ICON ================= */
+.cart-icon{
+  position:relative;
+  cursor:pointer;
+  padding:8px;
+  color:#fff;
+  display:flex;
+  align-items:center;
+}
+.cart-badge{
+  position:absolute;
+  top:2px;
+  right:0;
+  background:var(--red);
+  color:#fff;
+  border-radius:50%;
+  width:20px;
+  height:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+}
+.cart-badge.hidden{
+  display:none;
+}
+
+/* ================= CART DROPDOWN ================= */
+.cart-dropdown{
+  position:absolute;
+  top:100%;
+  right:20px;
+  width:380px;
+  background:var(--card);
+  border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  z-index:1000;
+  margin-top:12px;
+  display:none;
+  color:#fff;
+}
+.cart-dropdown.show{
+  display:block;
+}
+.cart-dropdown-header{
+  padding:16px;
+  border-bottom:1px solid #444;
+  font-weight:700;
+  font-size:18px;
+}
+.cart-items{
+  max-height:400px;
+  overflow-y:auto;
+}
+.cart-item{
+  padding:16px;
+  border-bottom:1px solid #444;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.cart-item-image{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:4px;
+  background:#fff;
+}
+.cart-item-details{
+  flex:1;
+}
+.cart-item-name{
+  font-weight:700;
+  margin:0 0 4px;
+}
+.cart-item-price{
+  font-size:14px;
+  opacity:0.8;
+}
+.cart-item-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+.cart-item-btn{
+  background:var(--orange);
+  color:#fff;
+  border:none;
+  width:24px;
+  height:24px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+}
+.cart-item-quantity{
+  min-width:30px;
+  text-align:center;
+}
+.cart-item-remove{
+  background:var(--red);
+  color:#fff;
+  border:none;
+  padding:4px 8px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+.cart-empty{
+  padding:40px;
+  text-align:center;
+  opacity:0.6;
+}
+.cart-footer{
+  padding:16px;
+  border-top:1px solid #444;
+}
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  font-weight:700;
+  font-size:18px;
+  margin-bottom:12px;
+}
+.cart-checkout-btn{
+  width:100%;
+  padding:12px;
+  background:var(--red);
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+  font-size:16px;
+}
+.cart-checkout-btn:hover{
+  background:#c01717;
+}
+
+/* ================= SQUAD PAGE ================= */
+.page-title{
+  text-align:center;
+  color:#fff;
+  font-size:42px;
+  margin:40px 0;
+  letter-spacing:2px;
+}
+.squad-section{
+  background:var(--orange);
+  min-height:calc(100vh - 90px);
+  padding:40px 0;
+}
+.players-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+  max-width:1000px;
+  margin:0 auto;
+}
+.player-card,.coach-card{
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  text-align:center;
+  color:#fff;
+  position:relative;
+}
+.player-card img,.coach-card img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+}
+.player-info,.coach-info{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.8);
+  padding:16px;
+}
+.player-position,.coach-position{
+  font-size:13px;
+  opacity:0.8;
+}
+.player-name,.coach-name{
+  font-size:18px;
+  font-weight:700;
+  margin:4px 0;
+}
+.player-number{
+  font-size:28px;
+  font-weight:700;
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:rgba(0,0,0,0.7);
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.coach-card{
+  /* Тренер будет на позиции 6 в сетке 3x2 */
+}
+</style>
+
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site" id="siteHeader">
+  <div class="container">
+    <div class="bar">
+      <a class="logo" href="index.html">
+        <img src="images/v1_195.png" alt="логотип">
+        <div class="brand">АНЖИЛ — КОСТРОМА</div>
+      </a>
+      <nav class="main">
+        <ul>
+          <li><a href="squad.html">Состав</a></li>
+          <li><a href="history.html">История</a></li>
+          <li><a href="media.html">Медиа</a></li>
+          <li><a href="shop.html">Магазин</a></li>
+          <li><a href="tickets.html">Билеты</a></li>
+          <li><a href="transfers.html">Трансферы</a></li>
+          <li><a href="login.html">Войти</a></li>
+        </ul>
+      </nav>
+      <div class="cart-icon" id="cartIcon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+
+        <!-- ================= CART DROPDOWN ================= -->
+        <div class="cart-dropdown" id="cartDropdown">
+          <div class="cart-dropdown-header">Корзина</div>
+          <div class="cart-items" id="cartItemsContainer">
+            <div class="cart-empty">Корзина пуста</div>
+          </div>
+          <div class="cart-footer" id="cartFooter" style="display:none">
+            <div class="cart-total">
+              <span>Итого:</span>
+              <span id="cartTotal">0 ₽</span>
+            </div>
+            <button class="cart-checkout-btn" onclick="window.location.href='checkout.html'">
+              Перейти к оплате
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main style="padding-top:90px">
+  <!-- ================= SQUAD PAGE ================= -->
+  <section class="squad-section">
+    <div class="container">
+      <h1 class="page-title">СОСТАВ</h1>
+
+      <div class="players-grid">
+        <!-- Игрок 1: Вратарь -->
+        <div class="player-card">
+          <img src="images/image 13.png" alt="Вратарь" onerror="this.src='images/1.png'">
+          <div class="player-number">1</div>
+          <div class="player-info">
+            <div class="player-position">Вратарь</div>
+            <div class="player-name">Разихан Стенорех</div>
+          </div>
+        </div>
+
+        <!-- Игрок 2: Защитник -->
+        <div class="player-card">
+          <!-- МЕСТО ДЛЯ ФОТО: вставить фото защитника (Артём Ван Дейк) -->
+          <img src="images/image 17.png" alt="Защитник" onerror="this.src='images/1.png'">
+          <div class="player-number">2</div>
+          <div class="player-info">
+            <div class="player-position">Защитник</div>
+            <div class="player-name">Артём Ван Дейк</div>
+          </div>
+        </div>
+
+        <!-- Игрок 3: Защитник -->
+        <div class="player-card">
+          <img src="images/image 15.png" alt="Защитник" onerror="this.src='images/1.png'">
+          <div class="player-number">3</div>
+          <div class="player-info">
+            <div class="player-position">Защитник</div>
+            <div class="player-name">Николай Скиф</div>
+          </div>
+        </div>
+
+        <!-- Игрок 4: Полузащитник (к) -->
+        <div class="player-card">
+          <img src="images/Rectangle 11.png" alt="Полузащитник" onerror="this.src='images/1.png'">
+          <div class="player-number">10</div>
+          <div class="player-info">
+            <div class="player-position">Полузащитник (к)</div>
+            <div class="player-name">Вадим Челсик</div>
+          </div>
+        </div>
+
+        <!-- Игрок 5: Нападающий -->
+        <div class="player-card">
+          <img src="images/image 14.png" alt="Нападающий" onerror="this.src='images/1.png'">
+          <div class="player-number">7</div>
+          <div class="player-info">
+            <div class="player-position">Нападающий</div>
+            <div class="player-name">Дмитрий Ферзев</div>
+          </div>
+        </div>
+
+        <!-- Тренер (под Николаем Скифом, справа от Дмитрия Ферзева) -->
+        <div class="coach-card">
+          <img src="images/image 16.png" alt="Главный тренер" onerror="this.src='images/1.png'">
+          <div class="coach-info">
+            <div class="coach-position">Главный Тренер</div>
+            <div class="coach-name">Шамиль Назиров</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div>
+        <div class="footer-title">Официальный сайт ФК "Анжил"</div>
+        <div class="copyright">© 2019–2025</div>
+      </div>
+      <div class="address">Мы находимся: город Кострома, ул. Ленина 147, кв.26</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/auth-header.js"></script>
+<script>
+/* ========= SHRINK HEADER ========= */
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) header.classList.add('shrink');
+  else header.classList.remove('shrink');
+});
+</script>
+
+</body>
+</html>
