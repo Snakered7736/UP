@@ -189,11 +189,11 @@ def get_orders():
 
                 if match:
                     item_dict['product_name'] = f"Билет: {match['home_team']} - {match['away_team']}"
-                    item_dict['product_image'] = 'images/ticket-icon.png'
+                    item_dict['product_image'] = 'images/ticket-icon.svg'
                     item_dict['ticket_details'] = f"{match['date']}, {match['time']}"
                 else:
                     item_dict['product_name'] = 'Билет (матч не найден)'
-                    item_dict['product_image'] = 'images/placeholder.png'
+                    item_dict['product_image'] = 'images/ticket-icon.svg'
 
             order_items.append(item_dict)
 
