@@ -9,7 +9,8 @@ def get_matches():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    matches = cursor.execute('SELECT * FROM matches ORDER BY date DESC').fetchall()
+    # Возвращаем только не удалённые матчи
+    matches = cursor.execute('SELECT * FROM matches WHERE is_deleted = 0 OR is_deleted IS NULL ORDER BY date DESC').fetchall()
     conn.close()
 
     return jsonify([dict(match) for match in matches]), 200
@@ -98,11 +99,12 @@ def delete_match(match_id):
     cursor = conn.cursor()
 
     try:
-        cursor.execute('DELETE FROM matches WHERE id = ?', (match_id,))
+        # Не удаляем матч, а помечаем как удалённый
+        cursor.execute('UPDATE matches SET is_deleted = 1 WHERE id = ?', (match_id,))
         conn.commit()
         conn.close()
 
-        return jsonify({'message': 'Match deleted successfully'}), 200
+        return jsonify({'message': 'Match hidden successfully'}), 200
 
     except Exception as e:
         conn.close()

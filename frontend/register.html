@@ -194,9 +194,19 @@ a{
       <div class="form-group">
         <input
           type="text"
-          id="contact"
+          id="name"
           class="form-input"
-          placeholder="Телефон или почта"
+          placeholder="Ваше имя"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <input
+          type="email"
+          id="email"
+          class="form-input"
+          placeholder="Email"
           required
         >
       </div>
@@ -239,13 +249,28 @@ a{
 document.getElementById('registerForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  const contact = document.getElementById('contact').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
   const errorMsg = document.getElementById('errorMessage');
 
   // Очищаем предыдущие ошибки
   errorMsg.classList.remove('show');
+
+  // Проверка имени
+  if (!name || name.length < 2) {
+    errorMsg.textContent = 'Введите ваше имя (минимум 2 символа)!';
+    errorMsg.classList.add('show');
+    return;
+  }
+
+  // Проверка email
+  if (!email || !email.includes('@')) {
+    errorMsg.textContent = 'Введите корректный email!';
+    errorMsg.classList.add('show');
+    return;
+  }
 
   // Проверка совпадения паролей
   if (password !== confirmPassword) {
@@ -262,8 +287,9 @@ document.getElementById('registerForm').addEventListener('submit', async functio
   }
 
   const userData = {
-    contact: contact,
-    password: password
+    email: email,
+    password: password,
+    name: name
   };
 
   console.log('Регистрация пользователя:', userData);

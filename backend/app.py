@@ -8,6 +8,7 @@ from routes import (
     matches_bp, tickets_bp, transfers_bp, orders_bp
 )
 from routes.profile import profile_bp
+from routes.admin import admin_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -39,6 +40,7 @@ app.register_blueprint(tickets_bp, url_prefix='/api')
 app.register_blueprint(transfers_bp, url_prefix='/api')
 app.register_blueprint(orders_bp, url_prefix='/api')
 app.register_blueprint(profile_bp, url_prefix='/api')
+app.register_blueprint(admin_bp, url_prefix='/api')
 
 @app.route('/')
 def index():

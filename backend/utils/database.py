@@ -138,6 +138,9 @@ def init_db():
     if 'sold_tickets' not in columns:
         cursor.execute("ALTER TABLE matches ADD COLUMN sold_tickets INTEGER DEFAULT 0")
         conn.commit()
+    if 'is_deleted' not in columns:
+        cursor.execute("ALTER TABLE matches ADD COLUMN is_deleted BOOLEAN DEFAULT 0")
+        conn.commit()
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS orders (

@@ -569,19 +569,41 @@ async function loadUpcomingMatch() {
       matchCard.querySelector('.score').textContent = match.score;
     }
 
+    // Проверяем доступность билетов
+    const totalTickets = match.total_tickets || 100;
+    const soldTickets = match.sold_tickets || 0;
+    const remainingTickets = totalTickets - soldTickets;
+    const isSoldOut = remainingTickets <= 0;
+
     // Добавляем билет в корзину
     const buyBtn = matchCard.querySelector('.btn');
-    buyBtn.onclick = (e) => {
-      e.preventDefault();
-      cart.addItem({
-        id: 'ticket_' + match.id,
-        name: `Билет: ${match.home_team} vs ${match.away_team}`,
-        price: 100,
-        image: 'images/ticket.png',
-        quantity: 1
-      });
-      alert('Билет добавлен в корзину!');
-    };
+
+    if (isSoldOut) {
+      buyBtn.textContent = 'Билеты распроданы';
+      buyBtn.style.background = '#555';
+      buyBtn.style.cursor = 'not-allowed';
+      buyBtn.style.opacity = '0.5';
+      buyBtn.onclick = (e) => {
+        e.preventDefault();
+        alert('К сожалению, все билеты на этот матч распроданы!');
+      };
+    } else {
+      buyBtn.textContent = 'Купить билет';
+      buyBtn.style.background = '';
+      buyBtn.style.cursor = '';
+      buyBtn.style.opacity = '';
+      buyBtn.onclick = (e) => {
+        e.preventDefault();
+        cart.addItem({
+          id: 'ticket_' + match.id,
+          name: `Билет: ${match.home_team} vs ${match.away_team}`,
+          price: 100,
+          image: 'images/ticket.png',
+          quantity: 1
+        });
+        alert('Билет добавлен в корзину!');
+      };
+    }
   } catch (err) {
     console.error('Error loading match:', err);
   }
