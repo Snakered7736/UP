@@ -42,9 +42,9 @@ def register():
     if not data or not all(k in data for k in ('contact', 'password')):
         return jsonify({'error': 'Missing required fields'}), 400
 
-    contact = data['contact']
+    email = data.get('email') or data.get('contact')
     password = data['password']
-    name = data.get('name', contact)
+    name = data.get('name', email)
 
     hashed_password = hash_password(password)
 

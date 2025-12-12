@@ -294,34 +294,11 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 
   console.log('Регистрация пользователя:', userData);
 
-  // Здесь будет отправка на бэкенд
-  // try {
-  //   const response = await fetch('http://localhost:5000/api/auth/register', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(userData)
-  //   });
-  //
-  //   if (!response.ok) {
-  //     const error = await response.json();
-  //     errorMsg.textContent = error.message || 'Ошибка регистрации';
-  //     errorMsg.classList.add('show');
-  //     return;
-  //   }
-  //
-  //   const data = await response.json();
-  //   localStorage.setItem('user', JSON.stringify(data.user));
-  //   window.location.href = 'index.html';
-  // } catch (err) {
-  //   errorMsg.textContent = 'Ошибка подключения к серверу';
-  //   errorMsg.classList.add('show');
-  // }
-
   try {
     const response = await fetch('http://localhost:5000/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({contact: contact, password: password})
+      body: JSON.stringify(userData)
     });
 
     if (!response.ok) {
@@ -334,10 +311,11 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     const data = await response.json();
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('userRole', data.user.role);  // Сохранить роль
+    localStorage.setItem('userRole', data.user.role);
     alert('Регистрация успешна!');
     window.location.href = 'index.html';
   } catch (err) {
+    console.error('Ошибка регистрации:', err);
     errorMsg.textContent = 'Ошибка подключения к серверу';
     errorMsg.classList.add('show');
   }
