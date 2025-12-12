@@ -72,9 +72,13 @@ class Cart {
       const idIsString = typeof item.id === 'string';
       const idParam = idIsString ? `'${item.id}'` : item.id;
 
+      // Для билетов используем object-fit: contain
+      const isTicket = item.image && item.image.includes('ticket');
+      const imgStyle = isTicket ? 'style="object-fit: contain; padding: 5px;"' : '';
+
       return `
       <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}" class="cart-item-image" onerror="this.src='images/1.png'">
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image" ${imgStyle} onerror="this.src='images/1.png'">
         <div class="cart-item-details">
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-price">${item.price} ₽</div>
