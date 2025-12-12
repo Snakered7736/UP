@@ -10,7 +10,8 @@ def get_transfers():
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    transfers = cursor.execute('SELECT * FROM transfers ORDER BY date DESC').fetchall()
+    # Возвращаем только не удалённые трансферы
+    transfers = cursor.execute('SELECT * FROM transfers WHERE is_deleted = 0 OR is_deleted IS NULL ORDER BY date DESC').fetchall()
     conn.close()
 
     return jsonify([dict(transfer) for transfer in transfers]), 200
@@ -71,6 +72,32 @@ def create_transfer():
             'message': 'Transfer created successfully',
             'transfer_id': transfer_id
         }), 201
+
+    except Exception as e:
+        conn.close()
+        return jsonify({'error': str(e)}), 500
+
+@transfers_bp.route('/transfers/<int:transfer_id>', methods=['DELETE'])
+def delete_transfer(transfer_id):
+    auth_header = request.headers.get('Authorization')
+    if not auth_header or not auth_header.startswith('Bearer '):
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    token = auth_header.split(' ')[1]
+    payload = verify_admin_token(token)
+    if not payload:
+        return jsonify({'error': 'Admin access required'}), 403
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    try:
+        # Не удаляем трансфер, а помечаем как удалённый
+        cursor.execute('UPDATE transfers SET is_deleted = 1 WHERE id = ?', (transfer_id,))
+        conn.commit()
+        conn.close()
+
+        return jsonify({'message': 'Transfer hidden successfully'}), 200
 
     except Exception as e:
         conn.close()

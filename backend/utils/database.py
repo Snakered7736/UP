@@ -121,6 +121,9 @@ def init_db():
     if 'to_club_logo' not in columns:
         cursor.execute("ALTER TABLE transfers ADD COLUMN to_club_logo TEXT DEFAULT 'images/v1_170.png'")
         conn.commit()
+    if 'is_deleted' not in columns:
+        cursor.execute("ALTER TABLE transfers ADD COLUMN is_deleted BOOLEAN DEFAULT 0")
+        conn.commit()
 
     # Миграция: добавить поле quantity для товаров
     cursor.execute("PRAGMA table_info(products)")
