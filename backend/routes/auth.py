@@ -39,7 +39,11 @@ def register():
     """
     data = request.get_json()
 
-    if not data or not all(k in data for k in ('contact', 'password')):
+    # Проверяем наличие обязательных полей (поддерживаем оба формата: email и contact)
+    has_email = 'email' in data or 'contact' in data
+    has_password = 'password' in data
+
+    if not data or not (has_email and has_password):
         return jsonify({'error': 'Missing required fields'}), 400
 
     email = data.get('email') or data.get('contact')
@@ -55,13 +59,13 @@ def register():
         role = 'user'  # Все новые пользователи получают роль 'user'
         cursor.execute(
             'INSERT INTO users (email, password, name, role) VALUES (?, ?, ?, ?)',
-            (contact, hashed_password, name, role)
+            (email, hashed_password, name, role)
         )
         conn.commit()
         user_id = cursor.lastrowid
         conn.close()
 
-        token = generate_token(user_id, contact, role)
+        token = generate_token(user_id, email, role)
 
         return jsonify({
             'message': 'User registered successfully',
@@ -69,7 +73,7 @@ def register():
             'user': {
                 'id': user_id,
                 'name': name,
-                'email': contact,
+                'email': email,
                 'role': role
             }
         }), 201
