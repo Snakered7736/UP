@@ -49,7 +49,6 @@ c:/up/
 │   ├── seed_data.py            # Начальные данные
 │   ├── clean_database.py       # Утилита очистки БД
 │   ├── football_club.db        # База данных
-│   ├── API_DOCS.md             # API документация
 │   ├── ERD.md                  # Диаграмма БД
 │   ├── routes/                 # API маршруты
 │   ├── services/               # Бизнес-логика
@@ -58,7 +57,6 @@ c:/up/
 │   ├── *.html                  # HTML страницы
 │   ├── js/                     # JavaScript файлы
 │   └── images/                 # Изображения
-└── TECH_STACK_CHECKLIST.md     # Проверка требований
 ```
 
 ## 🚀 Установка и запуск
@@ -75,11 +73,6 @@ pip install flask flask-cors flasgger pyjwt bcrypt
 ```bash
 python seed_data.py
 ```
-
-Будет создана БД с тестовыми данными:
-- Администратор (admin@anzhi.ru / admin123)
-- 7 игроков команды
-- 6 товаров в магазине
 
 ### 3. Запуск сервера
 
